@@ -1,0 +1,7 @@
+package com.api.restaurant.repository;
+
+import com.api.restaurant.modele.Comment;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CommentRepository extends CrudRepository<Comment,Integer>{
+}
