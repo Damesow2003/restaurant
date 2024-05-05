@@ -7,5 +7,5 @@ import com.api.restaurant.modele.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {
-	
+	public User findByEmail(String email);
 }

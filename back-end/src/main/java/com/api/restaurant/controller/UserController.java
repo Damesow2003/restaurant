@@ -24,19 +24,20 @@ public class UserController {
 	public Iterable<User> getUsers(){
 		return userService.getUsers();
 	}
-	
-	@PostMapping("/users")
+	/*
+	@PostMapping("/auth/users")
 	public ResponseEntity<User> addUser(@RequestBody User user){
+		System.out.println(user.getEmail());
 		User saveUser = userService.saveUser(user);
 		if(saveUser==null) {
 			throw new ImpossibleAjoutUser("Impossible ajouter un user");
 		}
-		
+
 	URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.buildAndExpand(user.getId())
 			.toUri();
-	
-	return ResponseEntity.created(location).build();
-	}
+
+	return ResponseEntity.created(location).build();}*/
+
 }

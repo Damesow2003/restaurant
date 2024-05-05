@@ -2,12 +2,14 @@ package com.api.restaurant.configuration;
 
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,7 +37,8 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
+    @Autowired
+    CustomAuthentication customAuthentication;
     private final String secretKey="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb";
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -44,6 +47,7 @@ public class SecurityConfig {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/**").permitAll())
+                .authorizeHttpRequests(auth->auth.requestMatchers("/auth/**").permitAll())
                 .authorizeHttpRequests(auth-> auth.anyRequest().authenticated())
 
                 //.httpBasic(Customizer.withDefaults())
@@ -51,7 +55,7 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
+  /*  @Bean
     public UserDetailsService users(){
         UserDetails user = User.builder()
                 .username("user")
@@ -65,7 +69,7 @@ public class SecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(user,admin);
 
-    }
+    }*/
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -73,6 +77,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtEncoder encode(){
+
         return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey.getBytes()));
     }
     @Bean
@@ -102,4 +107,14 @@ public class SecurityConfig {
 
         return source;
     }
+    @Bean
+    public AuthenticationManager authenticationManage(HttpSecurity http,BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
+                                                                        .getSharedObject(AuthenticationManagerBuilder.class);
+
+        authenticationManagerBuilder.userDetailsService(customAuthentication).passwordEncoder(bCryptPasswordEncoder);
+        return authenticationManagerBuilder.build();
+    }
+
+
 }

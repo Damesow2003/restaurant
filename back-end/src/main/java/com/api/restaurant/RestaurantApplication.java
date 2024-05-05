@@ -1,6 +1,8 @@
 package com.api.restaurant;
 
 
+import com.api.restaurant.controller.UserController;
+import com.api.restaurant.modele.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,12 +19,14 @@ public class RestaurantApplication implements CommandLineRunner{
 	@Autowired
 	UserRepository userRepository;
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(RestaurantApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
+
 	}
 }
