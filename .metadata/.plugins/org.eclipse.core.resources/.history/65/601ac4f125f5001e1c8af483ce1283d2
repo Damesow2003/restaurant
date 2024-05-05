@@ -1,0 +1,45 @@
+package com.api.restaurant;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.api.restaurant.modele.User;
+import com.api.restaurant.repository.UserRepository;
+
+
+
+@SpringBootApplication
+public class RestaurantApplication implements CommandLineRunner{
+	@Autowired
+	UserRepository userRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestaurantApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		User save1 = new User();
+		save1.setEmail("omar@example.com");
+		save1.setRoles("USER");
+		save1.setPassword("$2a$12$nU/tVm98DSDmNv6kW0MQ7eyFC9XeCxG65/udkv2Ny9x0uhjm8XM8K");
+		
+		User save2 = new User();
+		save2.setEmail("watt@example.com");
+		save2.setPassword("$2a$12$yqVl4UBm1Zw06wc9s/HS5OUodlAbSN1Y18WF9JrA6/tT/LpoGJv6G");
+		save2.setRoles("USER");
+		
+		User save3 = new User();
+		save3.setEmail("admin@example.com");
+		save3.setPassword("$2a$12$IbQ26XybwHmXh2W8Zg.YS.l1ECFSSHKwfo0wcaCuf020dj2L8ZVZO");
+		save3.setRoles("ADMIN");
+		
+		userRepository.save(save1);
+		userRepository.save(save2);
+		userRepository.save(save3);
+	}
+}

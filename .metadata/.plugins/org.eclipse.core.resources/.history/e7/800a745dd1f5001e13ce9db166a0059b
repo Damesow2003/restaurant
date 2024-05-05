@@ -1,0 +1,5 @@
+package com.api.restaurant.repository;
+
+public interface DinerRepository {
+
+}

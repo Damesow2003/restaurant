@@ -1,0 +1,19 @@
+package com.api.restaurant.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.restaurant.modele.Diner;
+import com.api.restaurant.repository.DinerRepository;
+
+@RestController
+public class DinerController {
+	@Autowired
+	private DinerRepository dinerRepository;
+	
+	@GetMapping("/diner")
+	public Iterable<Diner> getMenus(){
+		return dinerRepository.findAll();
+	}
+}

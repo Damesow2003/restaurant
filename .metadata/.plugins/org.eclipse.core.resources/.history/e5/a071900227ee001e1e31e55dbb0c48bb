@@ -1,0 +1,35 @@
+package com.api.restaurant;
+
+
+
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.api.restaurant.modele.Menu;
+import com.api.restaurant.repository.DinerRepository;
+import com.api.restaurant.repository.MenuRepository;
+
+
+
+@SpringBootApplication
+public class RestaurantApplication implements CommandLineRunner{
+	@Autowired
+	DinerRepository dinerRepository;
+	@Autowired
+	MenuRepository menuRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestaurantApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+	
+	}
+}

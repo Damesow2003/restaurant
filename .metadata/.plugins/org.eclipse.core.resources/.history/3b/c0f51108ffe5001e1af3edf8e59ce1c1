@@ -1,0 +1,27 @@
+package com.api.restaurant.controller;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.restaurant.modele.Diner;
+import com.api.restaurant.modele.Menu;
+import com.api.restaurant.repository.DinerRepository;
+
+@RestController
+public class DinerController {
+	@Autowired
+	private DinerRepository dinerRepository;
+	
+	@GetMapping("/diner")
+	public Iterable<Diner> getDiners(){
+		return dinerRepository.findAll();
+	}
+	@GetMapping("/diner/{id}")
+	public Optional<Diner> getDiner(@PathVariable Integer id){
+		Optional<Diner> diner = dinerRepository.findById(id);
+	}
+}

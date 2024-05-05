@@ -1,0 +1,32 @@
+package com.api.restaurant.modele;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Table(name="login")
+@Entity
+public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	
+	private String email;
+	
+	private String password;
+	private String roles;
+	private String confirm;
+
+	  public User() {
+	    }
+
+	    public User(String email, String password, String roles) {
+	        this.email = email;
+	        this.password = password;
+	        this.roles = roles;
+	    }
+	
+}

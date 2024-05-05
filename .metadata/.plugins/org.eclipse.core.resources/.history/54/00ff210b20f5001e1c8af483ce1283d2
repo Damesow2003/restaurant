@@ -1,0 +1,5 @@
+package com.api.restaurant.controller;
+
+public class UserRepository {
+
+}

@@ -1,0 +1,5 @@
+package com.api.restaurant.exceptions;
+
+public class ImpossibleAjouterUSer {
+
+}

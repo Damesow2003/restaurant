@@ -1,0 +1,63 @@
+package com.api.restaurant.modele;
+
+
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Table(name="commentaire_diner")
+@Entity
+public class CommentDiner {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Integer id;
+	
+	private String commentaire;
+	@Column(name="created_date")
+	private String createdDate;
+	@ManyToOne(
+			cascade=CascadeType.ALL)
+	@JoinColumn(name="diner_id")
+	private Diner diner;
+	
+	
+	public Diner getDiner() {
+		return diner;
+	}
+	public void setDiner(Diner diner) {
+		this.diner = diner;
+	}
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCommentaire() {
+		return commentaire;
+	}
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+	public int getDinerId() {
+		return dinerId;
+	}
+	public void setDinerId(int dinerId) {
+		this.dinerId = dinerId;
+	}
+	
+
+}

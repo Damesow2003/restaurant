@@ -1,0 +1,7 @@
+package com.api.restaurant.exceptions;
+
+public class ImpossibleAjoutUser extends RuntimeException{
+	public ImpossibleAjoutUser(String s) {
+		super(s);
+	}
+}

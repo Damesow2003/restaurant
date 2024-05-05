@@ -1,0 +1,40 @@
+package com.api.restaurant.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.api.restaurant.modele.User;
+import com.api.restaurant.repository.UserRepository;
+
+@RestController
+public class UserController {
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@GetMapping("/users")
+	public Iterable<User> getUsers(){
+		return userRepository.findAll();
+	}
+	
+	@PostMapping("/user")
+	public ResponseEntity<User> addUser(@RequestBody User user){
+		User saveUser = userRepository.save(user);
+		if(saveUser==null) {
+			throw
+		}
+		
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.buildAndExpand(user.getId())
+				.toUri();
+		
+		return ResponseEntity.created(location).build();
+				
+	}
+}
