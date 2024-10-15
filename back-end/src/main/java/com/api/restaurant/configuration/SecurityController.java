@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -34,6 +35,8 @@ public class SecurityController {
     JwtEncoder jwtEncoder;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("/profile")
     public Authentication authentication(Authentication authentication){
         return authentication;
@@ -51,7 +54,7 @@ public class SecurityController {
 
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(instant)
-                .expiresAt(instant.plus(10, ChronoUnit.MINUTES))
+                .expiresAt(instant.plus(1, ChronoUnit.DAYS))
                 .subject(username)
                 .claim("scope",scope)
                 .build();
@@ -67,8 +70,8 @@ public class SecurityController {
     }
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
-
-        User saveUser = userService.saveUser(user);
+        User newUser = new User(user.getEmail(),passwordEncoder.encode(user.getPassword()), user.getRoles());
+        User saveUser = userService.saveUser(newUser);
         if (saveUser == null) {
             throw new ImpossibleAjoutUser("Impossible ajouter un user");
         }

@@ -6,6 +6,7 @@ import com.api.restaurant.service.UserService;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,25 +20,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/users")
 	public Iterable<User> getUsers(){
 		return userService.getUsers();
 	}
-	/*
-	@PostMapping("/auth/users")
-	public ResponseEntity<User> addUser(@RequestBody User user){
-		System.out.println(user.getEmail());
-		User saveUser = userService.saveUser(user);
-		if(saveUser==null) {
-			throw new ImpossibleAjoutUser("Impossible ajouter un user");
-		}
-
-	URI location = ServletUriComponentsBuilder
-			.fromCurrentRequest()
-			.buildAndExpand(user.getId())
-			.toUri();
-
-	return ResponseEntity.created(location).build();}*/
-
 }

@@ -31,12 +31,11 @@ public class Menu {
 	private String position;
 	@Column(name="created_date")
 	private Date createdDate;
-	
 	@OneToMany(
 			cascade=CascadeType.ALL,
 			orphanRemoval=true,
 			fetch = FetchType.EAGER
-			)
+	)
 	@JoinColumn(name="menu_id")
 	List<Comment> comments = new ArrayList<>();
 

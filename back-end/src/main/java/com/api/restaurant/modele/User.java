@@ -1,11 +1,10 @@
 package com.api.restaurant.modele;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="login")
 @DynamicUpdate
@@ -14,12 +13,35 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
-	
+
+	public User() {
+	}
+	public User(String email, String password, String roles) {
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
 	private String email;
-	
 	private String password;
 	private String roles;
+	@OneToMany(
+			cascade = {
+					CascadeType.MERGE,
+					CascadeType.PERSIST
+			},
+			fetch = FetchType.LAZY
+	)
+	@JoinColumn(name="user_id")
+	private List<Menu> menus = new ArrayList<Menu>();
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -44,7 +66,4 @@ public class User {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-	
-	
-	    
 }

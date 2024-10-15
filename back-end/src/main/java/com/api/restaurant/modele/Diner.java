@@ -30,7 +30,7 @@ public class Diner{
     )
     @JoinColumn(name="diner_id")
     private List<CommentDiner> comments = new ArrayList<>();
-
+    
     public Integer getId() {
         return id;
     }
